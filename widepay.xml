@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="1.0" type="plugin" group="vmpayment" method="upgrade">
+    <name>WidePay</name>
+    <creationDate>October 2020</creationDate>
+    <author>Wide Pay</author>
+    <authorUrl>https://widepay.com</authorUrl>
+    <copyright>Copyright (C) 2015. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <version>3.0.0</version>
+    <description>
+        Plugin de pagamento WidePay
+        &lt;div style=&quot;background:#E5F5FF;border:1px solid #99D6FF;padding:10px;margin:10px; -box-shadow: inset 0px
+        0px 10px #fff, 0px 0px 5px #ccc; -webkit-box-shadow: inset 0px 0px 10px #fff, 0px 0px 5px #ccc; -moz-box-shadow:
+        inset 0px 0px 10px #fff, 0px 0px 5px #ccc;&quot;&gt;
+        &lt;h1&gt;Plugin de pagamento WidePay para Virtuemart 2.0.&lt;/h1&gt;
+        &lt;div&gt;&lt;em&gt;Passo 1&lt;/em&gt; - Habilite o plugin aqui &lt;a target="_blank" href=&quot;index.php?option=com_plugins&amp;view=plugins&amp;filter_search=widepay&quot;&gt;Administrar
+        Plugins&lt;/a&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;em&gt;Passo 2&lt;/em&gt; - Instale Plugin por esta tela &lt;a target="_blank" href=&quot;index.php?option=com_virtuemart&amp;view=paymentmethod&quot;&gt;Métodos
+        de pagamento&lt;/a&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    </description>
+    <files>
+        <filename plugin="widepay">widepay.php</filename>
+        <folder>admin</folder>
+        <folder>widepay</folder>
+    </files>
+    <media folder="imagens" destination="/images/stories/virtuemart/payment/">
+        <filename>widepay.gif</filename>
+    </media>
+    <config>
+        <fields name="params" addfieldpath="/plugins/vmpayment/widepay/admin/elements/">
+            <fieldset name="basic">
+
+                <field type="vmtitle" default="Wide Pay" description=""/>
+
+                <field type="vmjpluginwarning"/>
+
+
+                <field name="payment_logos" type="vmfiles" directory="/images/stories/virtuemart/payment"
+                       hide_none="1" label="VMPAYMENT_STANDARD_LOGOS"
+                       size="40"
+                       description="VMPAYMENT_STANDARD_LOGOS_TIP"/>
+
+                <field name="WIDE_PAY_WALLET_ID" type="text" size="30" label="ID da Carteira Wide Pay"
+                       description="Preencha este campo com o ID da carteira que deseja receber os pagamentos do sistema. O ID de sua carteira estará presente neste link: https://www.widepay.com/conta/configuracoes/carteiras"/>
+
+                <field name="WIDE_PAY_WALLET_TOKEN" size="60" type="text" label="Token da Carteira Wide Pay"
+                       description='Preencha com o token referente a sua carteira escolhida no campo acima. Clique no botão: "Integrações" na página do Wide Pay, será exibido o Token'/>
+
+                <field name="WIDE_PAY_VALIDADE" type="list" default="5"
+                       description="Prazo de validade em dias para o Boleto."
+                       label="Acréscimo de Dias no Vencimento">
+                    <option value="3">3 dias</option>
+                    <option value="4">4 dias</option>
+                    <option value="5">5 dias</option>
+                    <option value="6">6 dias</option>
+                    <option value="7">7 dias</option>
+                    <option value="8">8 dias</option>
+                    <option value="9">9 dias</option>
+                    <option value="10">10 dias</option>
+                    <option value="11">11 dias</option>
+                    <option value="12">12 dias</option>
+                    <option value="13">13 dias</option>
+                    <option value="14">14 dias</option>
+                    <option value="15">15 dias</option>
+                    <option value="16">16 dias</option>
+                    <option value="17">17 dias</option>
+                    <option value="18">18 dias</option>
+                    <option value="19">19 dias</option>
+                    <option value="20">20 dias</option>
+                </field>
+
+                <field name="WIDE_PAY_FINE" type="number" size="30"
+                       description="Configuração de multa após o vencimento"
+                       label="Configuração de Multa"/>
+
+                <field name="WIDE_PAY_INTEREST" type="number" size="30"
+                       description="Configuração de juros após o vencimento"
+                       label="Configuração de Juros"/>
+
+                <field name="WIDE_PAY_WAY" type="list" default="boleto_cartao"
+                       label="Forma de Recebimento">
+                    <option value="boleto_cartao">Boleto e Cartão</option>
+                    <option value="boleto">Boleto</option>
+                    <option value="cartao">Cartão</option>
+                </field>
+
+                <field type="vmspacer" default="Configuração Campos extras"/>
+                <field name="WIDE_PAY_NUMBER" type="vmfield" size="30" label="Campo Número ( do endereço )"
+                       description="Nome do campo Número do Endereço do usuário" default="numero"/>
+                <field name="WIDE_PAY_COMPLEMENT" type="vmfield" size="30" label="Campo Complemento ( do endereço )"
+                       description="Nome do campo Complemento do Endereço do usuário" default="complemento"/>
+                <field name="WIDE_PAY_CPF_CNPJ" required="true" type="vmfield" size="30" label="Origem CPF/CNPJ"
+                       description="Campo customizado para CPF/CNPJ" default=""/>
+
+                <field type="vmspacer" default="Status"/>
+
+                <field name="status_aguardando" type="vmorderstate" default="A" label="Aguardando Pagto"
+                       description="Status Aguardando Pagto dentro do seu Virtuemart"/>
+                <field name="status_paga" type="vmorderstate" default="C" label="Paga"
+                       description="Status Paga dentro do seu Virtuemart"/>
+
+                <field type="vmspacer" default="Extras"/>
+                <field name="countries" type="vmcountries" scope="com_virtuemart" default="" label="Países"
+                       description="Países para validar este pagamento"/>
+                <field name="tax_id" type="vmtaxes" scope="com_virtuemart" label="Tarifa/Imposto"
+                       description="Imposto ou tarifa aplicada"/>
+
+                <field name="modo_calculo_desconto" type="list" default="1"
+                       label="Modo de cálculo de descontos/tarifas">
+                    <option value="1">Modo Simples ( desconto normal )</option>
+                    <option value="2">Modo VirtueMart ( desconto progressivo )</option>
+                </field>
+
+                <field name="cost_per_transaction" type="number"  label="Custo/Desconto adicional por Transação" description="Custo total por transação" />
+                <field name="cost_percent_total" type="number"  label="Custo/Desconto percentual total" description="Custo percentual total pela venda" />
+
+
+            </fieldset>
+        </fields>
+    </config>
+</extension>
